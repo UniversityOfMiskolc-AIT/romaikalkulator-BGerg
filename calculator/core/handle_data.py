@@ -1,30 +1,37 @@
 arabic_numbers = {
     "I": 1,
-    "II": 2,
-    "III": 3,
-    "IV": 4,
     "V": 5,
-    "VI": 6,
-    "VII": 7,
-    "VIII": 8,
-    "XI": 9,
     "X": 10,
-    "XX": 20,
-    "XXX": 30,
-    "XL": 40,
     "L": 50,
-    "LX": 60,
-    "LXX": 70,
-    "LXXX": 80,
-    "XC": 90,
     "C": 100,
-    "CC":200,
-    "CCC": 300,
-    "CD": 400,
     "D": 500,
-    "DC": 600,
-    "DCC": 700,
-    "DCCC": 800,
-    "CM": 900,
     "M": 1000
 }
+
+special_roman_numbers = {
+    "IV": 4,
+    "IX": 9,
+    "XC": 90,
+    "CD": 400,
+    "CM": 900
+}
+
+
+def exchange_to_arabic(roman_number: str) -> int:
+    a = 0
+    i = 0
+    while i < len(roman_number):
+        if (len(roman_number) - i) >= 2:
+            try:
+                a += special_roman_numbers[roman_number[i]+roman_number[i+1]]
+                i += 2
+            except KeyError:
+                a += arabic_numbers[roman_number[i]]
+                i += 1
+        else:
+            a += arabic_numbers[roman_number[i]]
+            i += 1
+
+    return a
+
+
