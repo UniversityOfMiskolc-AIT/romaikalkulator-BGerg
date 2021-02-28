@@ -2,10 +2,10 @@ import calculator.core.numbers as numbers
 
 
 
-def convert_expression_to_arabic(expression: str):
+def convert_expression_to_arabic(roman_expression: str):
     roman_number = ""
     arabic_expression = ""
-    for elem in expression:
+    for elem in roman_expression:
         if elem == "+" or elem == "-" or elem == "*" or elem == " ":
             arabic_expression += convert_roman_to_arabic(roman_number)
             arabic_expression += elem

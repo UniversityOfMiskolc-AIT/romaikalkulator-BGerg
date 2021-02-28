@@ -6,17 +6,11 @@ def parse():
                                                  ', check correctness and write to a new file in normal digit format.',
                                      epilog='Enjoy the digital world! :)')
 
-    parser.add_argument('input_file',
-                        metavar='Input file name',
+    parser.add_argument('roman_expression',
+                        metavar='Roman expression',
                         type=str,
-                        help='Seven digit format account numbers read from this file')
+                        help='Needs a math expression with roman numbers e.g. I+IV*2 ')
 
-    parser.add_argument('-s',
-                        '--saveto',
-                        action='store',
-                        type=str,
-                        default='report.txt',
-                        metavar='',
-                        help='Set output file name for account number')
+
 
     return parser.parse_args()
