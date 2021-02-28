@@ -40,10 +40,13 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(convert_expression_to_arabic("I*DC"), "1*600")
 
     def test_get_calculated_expression(self):
-        self.assertEqual(get_calculated_expression("1+1", "I+I"), "I+I=2")
-        self.assertEqual(get_calculated_expression("1886+1", "MDCCCLXXXVI+I"), "MDCCCLXXXVI+I=1887")
-        self.assertEqual(get_calculated_expression("1-2", "MDCCCLXXXVI+I"), "MDCCCLXXXVI+I=-1")
-        self.assertEqual(get_calculated_expression("1*4//9-2+1", "I*IV/IX-II+I"), "I*IV/IX-II+I=-1")
+        self.assertEqual(get_calculated_expression("1+1", "I+I"), "I+I=II")
+        self.assertEqual(get_calculated_expression("1886+1", "MDCCCLXXXVI+I"), "MDCCCLXXXVI+I=MDCCCLXXXVII")
+        self.assertEqual(get_calculated_expression("7-1", "VII-I"), "VII-I=VI")
+        self.assertEqual(get_calculated_expression("1*4//9-2+3", "I*IV/IX-II+III"), "I*IV/IX-II+III=I")
 
     def test_convert_arabic_to_roman(self):
         self.assertEqual(convert_arabic_to_roman("611"), "DCXI")
+        self.assertEqual(convert_arabic_to_roman("3999"), "MMMCMXCIX")
+        self.assertEqual(convert_arabic_to_roman("6"), "VI")
+        self.assertEqual(convert_arabic_to_roman("768"), "DCCLXVIII")

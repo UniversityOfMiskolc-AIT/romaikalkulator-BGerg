@@ -1,6 +1,3 @@
 Pipfile.lock
 .idea
-faxreader/__pycache__/
-faxreader/cli/__pycache__/
-faxreader/core/__pycache__/
-faxreader/test/__pycache__/
+.idea/
