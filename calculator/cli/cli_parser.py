@@ -2,9 +2,9 @@ import argparse
 
 
 def parse():
-    parser = argparse.ArgumentParser(description='Read account numbers from file in seven digit format'
-                                                 ', check correctness and write to a new file in normal digit format.',
-                                     epilog='Enjoy the digital world! :)')
+    parser = argparse.ArgumentParser(description='Calculate mathematical expression in roman number format.'
+                                                 'The application works with maximum value 3999.',
+                                     epilog='All way lead to rom :)')
 
     parser.add_argument('roman_expression',
                         metavar='Roman expression',

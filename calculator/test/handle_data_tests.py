@@ -4,7 +4,7 @@ from calculator.core.handle_data import *
 
 class MyTestCase(unittest.TestCase):
 
-    def test_exchange_to_arabic_single_digit(self):
+    def test_convert_roman_to_arabic(self):
         self.assertEqual(convert_roman_to_arabic("I"), "1")
         self.assertEqual(convert_roman_to_arabic("II"), "2")
         self.assertEqual(convert_roman_to_arabic("III"), "3")
@@ -24,6 +24,8 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(convert_roman_to_arabic("MCXI"), "1111")
         self.assertEqual(convert_roman_to_arabic("MCMXCIX"), "1999")
         self.assertEqual(convert_roman_to_arabic("XIV"), "14")
+        with self.assertRaises(SystemExit):
+            convert_roman_to_arabic("MMMM")
 
     def test_convert_expression_to_arabic(self):
         self.assertEqual(convert_expression_to_arabic("I+I"), "1+1")
@@ -44,9 +46,12 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(get_calculated_expression("1886+1", "MDCCCLXXXVI+I"), "MDCCCLXXXVI+I=MDCCCLXXXVII")
         self.assertEqual(get_calculated_expression("7-1", "VII-I"), "VII-I=VI")
         self.assertEqual(get_calculated_expression("1*4//9-2+3", "I*IV/IX-II+III"), "I*IV/IX-II+III=I")
+        with self.assertRaises(SystemExit):
+            get_calculated_expression("3*7*1000","I")
 
     def test_convert_arabic_to_roman(self):
         self.assertEqual(convert_arabic_to_roman("611"), "DCXI")
         self.assertEqual(convert_arabic_to_roman("3999"), "MMMCMXCIX")
         self.assertEqual(convert_arabic_to_roman("6"), "VI")
         self.assertEqual(convert_arabic_to_roman("768"), "DCCLXVIII")
+        self.assertEqual(convert_arabic_to_roman("968"), "CMLXVIII")

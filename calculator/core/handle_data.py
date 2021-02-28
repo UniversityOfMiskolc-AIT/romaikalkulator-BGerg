@@ -1,6 +1,5 @@
 import calculator.core.numbers as numbers
-
-
+import sys
 
 def convert_expression_to_arabic(roman_expression: str):
     roman_number = ""
@@ -26,48 +25,51 @@ def convert_roman_to_arabic(roman_number: str) -> str:
     index = 0
 
     while index < len(roman_number):
-        if (len(roman_number) - index) >= 2:
-            try:
-                arabic_number += numbers.number_repository[roman_number[index] + roman_number[index + 1]]
-                index += 2
-            except KeyError:
-                arabic_number += numbers.number_repository[roman_number[index]]
-                index += 1
-        else:
+        try:
+            # parsing roman number is special type or not e.g. IV, IX, XL, XC, CD, CM
+            arabic_number += numbers.number_repository[roman_number[index] + roman_number[index + 1]]
+            index += 2
+        except:
             arabic_number += numbers.number_repository[roman_number[index]]
             index += 1
 
-    return str(arabic_number)
+    if arabic_number < 3999:
+        return str(arabic_number)
+    else:
+        sys.exit("One or more input number is too large to display in roman number format!")
 
 
 def get_calculated_expression(arabic_expression: str, roman_expression: str):
-    expression_result = convert_arabic_to_roman(str(eval(arabic_expression)))
-    return roman_expression + "=" + expression_result
+    arabic_result = eval(arabic_expression)
+    if arabic_result < 3999:
+        roman_result = convert_arabic_to_roman(str(arabic_result))
+        return roman_expression + "=" + roman_result
+    else:
+        sys.exit("The end result is too large to display in roman number format!")
 
 def convert_arabic_to_roman(arabic_number: str):
     roman_number = ""
-
     key_list = list(numbers.number_repository.keys())
     val_list = list(numbers.number_repository.values())
 
     for place_value in range(len(arabic_number)):
+        value = int(arabic_number[place_value])
+        number_pattern = str(value) + (len(arabic_number) - place_value - 1) * "0"
 
-        value = arabic_number[place_value]
-        number_pattern = value+ (len(arabic_number) - place_value - 1) * "0"
         try:
             position = val_list.index(int(number_pattern))
             roman_number += key_list[position]
         except ValueError:
-            if int(value) < 5:
+            if value < 5:
                 number_pattern = "1" + (len(arabic_number) - place_value - 1) * "0"
                 position = val_list.index(int(number_pattern))
-                roman_number += key_list[position] * int(value)
+                roman_number += key_list[position] * value
             else:
                 number_pattern = "5" + (len(arabic_number) - place_value - 1) * "0"
                 position = val_list.index(int(number_pattern))
                 roman_number += key_list[position]
                 number_pattern = "1" + (len(arabic_number) - place_value - 1) * "0"
                 position = val_list.index(int(number_pattern))
-                roman_number += (key_list[position] * (int(value) - 5))
+                roman_number += (key_list[position] * (value - 5))
 
     return roman_number
