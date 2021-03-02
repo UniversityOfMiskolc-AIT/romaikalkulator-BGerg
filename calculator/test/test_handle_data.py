@@ -24,9 +24,11 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(convert_roman_to_arabic("MCXI"), "1111")
         self.assertEqual(convert_roman_to_arabic("MCMXCIX"), "1999")
         self.assertEqual(convert_roman_to_arabic("XIV"), "14")
+        # with self.assertRaises(TooLargeToConvertError):
+        #     convert_roman_to_arabic("MMMM")
 
     def test_convert_expression_to_arabic(self):
-        self.assertEqual(convert_expression_to_arabic("I+I"), "1+1")
+        self.assertEqual("1+1", convert_expression_to_arabic("I+I"))
         self.assertEqual(convert_expression_to_arabic("I+II"), "1+2")
         self.assertEqual(convert_expression_to_arabic("I+IV"), "1+4")
         self.assertEqual(convert_expression_to_arabic("I+IV+I"), "1+4+1")
@@ -39,6 +41,10 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(convert_expression_to_arabic("I*VI"), "1*6")
         self.assertEqual(convert_expression_to_arabic("I*DC"), "1*600")
 
+    def test_get_calculated_expression(self):
+        self.assertEqual(2, eval(convert_expression_to_arabic("I+I")))
+        self.assertEqual(3, eval(convert_expression_to_arabic("I+II")))
+        self.assertEqual(5, eval(convert_expression_to_arabic("I+IV")))
 
     def test_convert_arabic_to_roman(self):
         self.assertEqual(convert_arabic_to_roman("611"), "DCXI")
